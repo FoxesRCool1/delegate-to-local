@@ -1,0 +1,28 @@
+{
+  "root": "/absolute/path/to/target-project",
+  "passes": [
+    {
+      "name": "money",
+      "task": "Create src/utils/money.ts exporting exactly one function, formatCurrency(cents: number): string, which formats cents as USD: 1050 -> \"$10.50\", 0 -> \"$0.00\", -1050 -> \"-$10.50\". No imports. No default export.",
+      "scope": ["src/utils/money.ts"],
+      "context": ["src/types/money.ts"],
+      "maxTokens": 3000,
+      "assert": [
+        "export function formatCurrency(cents: number): string",
+        { "text": "export default", "absent": true }
+      ]
+    },
+    {
+      "name": "pricetag",
+      "task": "Edit src/components/PriceTag.tsx to use formatCurrency from ../utils/money instead of the inline toFixed(2) expression. Add the import line: import { formatCurrency } from \"../utils/money\"; Change nothing else. Keep the PriceTagProps interface, every other member, and every existing comment exactly as they are.",
+      "scope": ["src/components/PriceTag.tsx"],
+      "context": ["src/utils/money.ts"],
+      "maxTokens": 3000,
+      "assert": [
+        "import { formatCurrency } from \"../utils/money\"",
+        { "text": "toFixed(2)", "absent": true },
+        "export interface PriceTagProps"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,6 @@
+node_modules/
+backups/
+retired/
+*.pre-ctx-*
+.claude/
+*.log

@@ -1,0 +1,13 @@
+{
+  "root": "/absolute/path/to/target-project",
+  "task": "Create bin/slugify.py exporting one function, slugify(text: str) -> str: lowercase, replace runs of non-alphanumerics with a single hyphen, strip leading and trailing hyphens. Empty input returns \"\". Standard library only.",
+  "scope": ["bin/slugify.py"],
+  "verify": [
+    ["/usr/bin/python3", "-c", "import pathlib,py_compile; p='bin/slugify.py'; py_compile.compile(p, doraise=True) if pathlib.Path(p).exists() else None"]
+  ],
+  "assert": [
+    "def slugify(text: str) -> str:",
+    { "regex": "^import re$" }
+  ],
+  "maxTokens": 2000
+}

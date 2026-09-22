@@ -1,0 +1,11 @@
+{
+  "root": "/absolute/path/to/target-project",
+  "task": "Add formatCurrency(cents: number): string to src/utils/money.ts. It formats cents as USD: 1050 -> \"$10.50\", 0 -> \"$0.00\". Negative input puts the minus before the dollar sign: -1050 -> \"-$10.50\". Emit the COMPLETE file and keep every existing export unchanged.",
+  "scope": ["src/utils/money.ts"],
+  "context": ["src/types/money.ts"],
+  "assert": [
+    "export function formatCurrency(cents: number): string",
+    { "text": ": any", "absent": true }
+  ],
+  "maxTokens": 4000
+}

@@ -1,0 +1,34 @@
+# Example llama-swap config for delegate-to-local (llama.cpp + llama-swap).
+# This is the setup every number in reference.md was measured on:
+# Qwen3.8-27B UD-Q4_K_XL, fully on a 24 GB GPU, 96k context, vision and
+# thinking off. Change the paths, -c and the model to match your machine.
+#
+# llama-swap listens on 127.0.0.1:8080 by default (-listen). Then:
+#   ~/.config/delegate-to-local/config.json
+#   { "url": "http://127.0.0.1:8080", "model": "qwen3.8-27b-delegate" }
+# The context size is read from the server, so "ctx" is not needed here.
+
+healthCheckTimeout: 900
+logLevel: info
+globalTTL: 900              # unload after 15 min idle
+
+macros:
+  llama_server: "/path/to/llama.cpp/build/bin/llama-server"
+  models: "/path/to/models"
+
+models:
+  "qwen3.8-27b-delegate":
+    name: "Qwen3.8 27B — delegate (no vision, 96k, no thinking)"
+    description: "For delegate-to-local. q8_0 KV cache, MTP draft, reasoning off."
+    cmd: |
+      ${llama_server}
+      -m ${models}/Qwen3.8-27B-GGUF/Qwen3.8-27B-UD-Q4_K_XL.gguf
+      --no-mmproj
+      --host 127.0.0.1 --port ${PORT}
+      -ngl 99 -fa on --jinja -np 1
+      -c 98304 -ctk q8_0 -ctv q8_0
+      --spec-type draft-mtp --spec-draft-n-max 3
+      -rea off
+      # -c 131072 left 0.4 GB of VRAM free and lagged the desktop; 98304 leaves ~1.8 GB.
+      # -np 1: one slot. The script holds a lock so runs queue instead of colliding.
+      # -rea off: no thinking phase. The script's loops need plain answers and tool calls.

@@ -1,0 +1,6 @@
+{
+  "root": "/absolute/path/to/target-project",
+  "ask": "Inventory every API route under src/app/api: for each, the HTTP method, the path, whether it checks auth, and a one-line purpose. Cite path:line for the handler. Skip tests.",
+  "readBudget": 30,
+  "maxTurns": 25
+}
