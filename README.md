@@ -210,11 +210,10 @@ detection, several models with none chosen).
 
 ## Support
 
-If this saves you tokens, you can buy the author a coffee:
+If this saves you tokens, you can buy me a coffee!
 [ko-fi.com/foxesrcool](https://ko-fi.com/foxesrcool).
 
-Issues and pull requests are welcome at
-[github.com/FoxesRCool1/delegate-to-local](https://github.com/FoxesRCool1/delegate-to-local).
+Issues and pull requests are welcome!
 
 ## License
 
